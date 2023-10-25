@@ -1,12 +1,12 @@
 ---
 title: "Assignment 2"
-author: "Your Name"
+author: "Kevin Bernabe"
 format: html
 ---
 
 **Overview:** 
 
-*For this assignment, you are going to evaluate modernization theory as laid out in Seymour Martin Lipset's [classic article](https://www-jstor-org.proxygw.wrlc.org/stable/1951731?seq=8) entitled "Some Social Requisites of Democracy: Economic Development and Political Legitimacy." How classic is this article? According to Google Scholar, this piece has been cited more than 11.5 thousand times!* 
+*iujhjhjbjHEWLLOOOOOFor this assignment, you are going to evaluate modernization theory as laid out in Seymour Martin Lipset's [classic article](https://www-jstor-org.proxygw.wrlc.org/stable/1951731?seq=8) entitled "Some Social Requisites of Democracy: Economic Development and Political Legitimacy." How classic is this article? According to Google Scholar, this piece has been cited more than 11.5 thousand times!* 
 
 *We are going to use data from V-Dem and modern data viz tools to explore Lipset's hypothesis that economic modernization is highly correlated with democracy. We have already done this to some extent by looking at the relationship between wealth and the polyarchy score. But we are going to broaden things out by looking at other measures of modernization and democracy contained in the V-Dem dataset.*
 
