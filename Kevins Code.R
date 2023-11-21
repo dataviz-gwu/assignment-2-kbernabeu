@@ -1,24 +1,3 @@
----
-title: "Assignment 2"
-author: "Kevin Bernabe"
-format: html
----
-
-**Overview:** 
-
-*iujhjhjbjHEWLLOOOOOFor this assignment, you are going to evaluate modernization theory as laid out in Seymour Martin Lipset's [classic article](https://www-jstor-org.proxygw.wrlc.org/stable/1951731?seq=8) entitled "Some Social Requisites of Democracy: Economic Development and Political Legitimacy." How classic is this article? According to Google Scholar, this piece has been cited more than 11.5 thousand times!* 
-
-*We are going to use data from V-Dem and modern data viz tools to explore Lipset's hypothesis that economic modernization is highly correlated with democracy. We have already done this to some extent by looking at the relationship between wealth and the polyarchy score. But we are going to broaden things out by looking at other measures of modernization and democracy contained in the V-Dem dataset.*
-
-*Before starting on this assignment, you will want to have a look at the V-Dem [codebook](https://www.v-dem.net/static/website/img/refs/codebookv111.pdf). Look through the sections titled "V-Dem Indicators" and "Background Factors (E)." There are five democracy indicators, one of which is the polyarchy index. There are a number of background factors, many of which pertain to economic modernization. We are going to be looking at the relationship between these two sets of variables.* 
-
-*Now have a look at "Some Social Requisites of Democracy" and in particular pay attention to the indicators in Table II and the discussion surrounding them. Think of each indicator (e.g. urbanization, education, etc.) as a sub-hypothesis of his theory. Which of these sub-hypotheses about modernization do you think is most compelling? Which would you like to test?*
-
-## Step 1: Gather Your Data
-
-*Use the `vdemdata` package to download data for your analysis. Since we already looked at the polyarchy score and wealth in class, you need to use a different measure of democracy and a different background factor for your analysis. Use a `select()` verb to include country, year, region (`e_regionpol_6C`), at least one of the other four measures of democracy, and one background factor that is not per capita GDP. Store your data in an object called `dem_data`. Pipe in a mutate() verb and use `case_match()` to label the regions. Review [module 1.2](https://dataviz-gwu.rocks/modules/module-1.2.html) if you are confused on how to do this.*
-```{r}
-
 install.packages("devtools")
 devtools::install_github("vdeminstitute/vdemdata")
 pkg_list <- c("wbstats", "countrycode") # create a list of packages
@@ -29,7 +8,6 @@ install.packages(pkg_list)
 library(wbstats) # for downloading WB data
 library(dplyr) # for selecting, renaming and mutating
 library(janitor) # for rounding
-library(vdemdata)
 
 #STEP 1: GATHERING DATA #################  
 #dowloading the data
@@ -60,13 +38,7 @@ dem_data <- vdem |> # download the V-Dem dataset
 
 # View the data
 glimpse(dem_data)
-```
-## Step 2: Make a bar chart
 
-*a) Insert a code chunk below this line and label it. Wrangle your data for the bar chart. Filter by year to include data since 2000, group by region and summarize by mean. Save the new data in an object called `bar_chart_data`.* 
-
-*b) Insert a code chunk below this line and label it. Use `ggplot()` and `geom_col()` to create a bar chart showing levels of democracy across the regions with your wrangled data. Make sure to add appropriate axis labels, a title and a caption. Add a theme to spruce it up a bit.* 
-```{r}
 #STEP 2: MAKE A BAR CHART   #################  
 #install.packages("scales")
 library(readr)
@@ -98,21 +70,9 @@ ggplot(bar_chart_data, aes(x = reorder(region, -egal), y = egal)) + # ggplot cal
   )
 print(bar_chart_data)
 
-```
 
-**Note: From here on out I will expect you to know to add a code chunk and label it.**
+#STEP 3: Make a colorblind-friendly line chart  #################  
 
-## Step 3: Make a colorblind-friendly line chart
-
-*a) Filter your `dem_data` to include three or four countries of your choosing and create a line chart of your democracy indicator. You can save the data as a new data frame called `dem_data_line` or you can pipe your filtered data directly into `ggplot()`.*
-
-*b) Use `cvdPlot()` to view your chart from the standpoint of someone with red-green color blindness and describe what you see.*
-
-*c) Add a colorblind-friendly color map using `viridis` or ColorBrewer.*
-
-*d) Run the plot through `cvdPlot()` and describe what you see. Is your plot colorblind friendly?* 
-
-```{r}
 
 #First, get our data
 
@@ -151,18 +111,8 @@ dem_data_line <- dem_data_line + scale_color_brewer(palette = "YlGn")
 cvdPlot(dem_data_line)
 
 
-```
+#Step 4: MAKE A SCATTER PLOT WITH ANNOTATION  #################  
 
-
-## Step 4: Make a scatter plot with annotation
-
-*a) Using `dem__data`, filter out a ten year period. This could be the most recent ten years of data or a distinct ten year period that you want to look at. If you choose a recent period, make sure that you have enough data to take an average of ten years. Some of the background variables in V-Dem are not entirely up to date. You can check the availability of the data by looking at the V-Dem codebook or using `glimpse()` or `View()` to look at your data.Group by country and summarize by mean. Save your your data in a new object called `dem_data_scatter`.*
-
-*b) Now build a scatter plot with `ggplot2`. Put your modernization-related variable (background variable) on the x-axis and your measure of democracy on the y-axis and color the points by region. Add a trend line with `geom_smooth()`. This could be a linear model or a loess curve. Add appropriate labels and a `viridis` or ColorBrewer color map and change the theme to `theme_minimal`.*
-
-*c) Add an annotation to your scatter plot using `annotate()` and `geom_vline()` or `geom_hline()`. Your annotation could highlight a particular year or level of democracy that is relevant for your analysis. Explain briefly why you included this annotation*
-
-```{r}
 
 #a) 
 start_year <- 2009
@@ -208,14 +158,8 @@ dem_data_l+ scale_color_viridis_d(option = "plasma") + theme_minimal()
 dem_data_l+
   annotate("text", x = 160000, y = .55, label = "Highest Trend")
 #Included this annotation because it shows the highest trend corrolation between the egalitarian index and GDP 
-```
 
-## Step 5: Make your scatter plot interactive 
-
-*a) Make your scatter plot interactive using `ggplotly()`. Make sure that your tooltip includes the information that you want to display to the user.*
-
-*b) Interpret your results. Does your plot show a relationship between the two variables? Which countries are outliers in your analysis? Why do you think they are outliers and how does your explanation relate to Lipset's hypothesis?*  
-```{r}
+#Step 5: MAKE YOYR SCATTER PLOT INTERACTIVE  #################  
 library(plotly)
 
 ggplotly(dem_data_l, tooltip = c("region", "egal", "gdp"))
@@ -230,4 +174,3 @@ ggplotly(dem_data_l, tooltip = c("region", "egal", "gdp"))
 # and modernization are associated with the adoption of democratic values. 
 # Thus, the identified correlation between GDP and the egalitarian index, 
 # coupled with the distinct pattern in Eastern Europe, offers support for the overarching principles of Lipset's hypothesis.
-```
